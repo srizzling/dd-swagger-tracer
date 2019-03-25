@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/caarlos0/env"
-	"github.com/sirupsen/logrus"
 	"github.com/srizzling/dd-trace-swagger/pkg/ecs"
 
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace"
@@ -50,11 +49,8 @@ func configure(config *DDStartTracerConfig) (string, []tracer.StartOption) {
 	startOpts := []tracer.StartOption{
 		tracer.WithAgentAddr(agentAddr),
 		tracer.WithDebugMode(config.DebugMode),
+		tracer.WithServiceName(config.ServiceName),
 	}
-
-	logrus.
-		WithField("Config", config).
-		Infof("configuring datadog agent")
 
 	// Attach Global Span Tags sourced from configuration (similar to java's implementation)
 	// In production this is added by nbos-cloud-ms
@@ -100,11 +96,6 @@ func StartFromEnv() error {
 }
 
 func Start(config *DDStartTracerConfig) error {
-	// Set global variable which is used in the handler
-	if config.ServiceName != "" {
-		ServiceName = config.ServiceName
-	}
-
 	// Generate start options to configure the datadog tracer agent
 	agentAddr, startOpts := configure(config)
 
