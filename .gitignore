@@ -1,0 +1,10 @@
+.idea/
+*.iml
+
+.vscode/settings.json
+vendor
+
+# sonarqube stuff
+coverage.txt
+report.json
+golangci-report.out
