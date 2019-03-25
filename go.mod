@@ -14,6 +14,7 @@ require (
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/opentracing/opentracing-go v1.1.0 // indirect
 	github.com/philhofer/fwd v1.0.0 // indirect
+	github.com/sirupsen/logrus v1.4.0
 	github.com/stretchr/testify v1.3.0
 	github.com/tinylib/msgp v1.1.0 // indirect
 	golang.org/x/net v0.0.0-20190320064053-1272bf9dcd53
