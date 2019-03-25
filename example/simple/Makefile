@@ -17,6 +17,11 @@ run-dd-agent:
 	datadog/agent:latest
 
 run:
+	DATADOG_HOST=$(DD_AGENT_HOST) \
+	DATADOG_APM_PORT=$(DD_AGENT_PORT) \
+	DD_APM_DEBUG=true \
+	DD_SERVICE_NAME=$(DD_SERVICE_NAME) \
+	DD_TRACE_SPAN_TAGS=$(DD_SPAN_TAGS) \
 	go run ./cmd/todo-list-server/
 
 .PHONY: vendor

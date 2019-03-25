@@ -10,6 +10,7 @@ import (
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
 
+	"github.com/sirupsen/logrus"
 	"github.com/srizzling/dd-swagger-tracer/example/simple/restapi/operations"
 	"github.com/srizzling/dd-swagger-tracer/example/simple/restapi/operations/todos"
 	"github.com/srizzling/dd-swagger-tracer/tracing"
@@ -22,6 +23,15 @@ func configureFlags(api *operations.TodoListAPI) {
 }
 
 func configureAPI(api *operations.TodoListAPI) http.Handler {
+
+	err := tracing.StartFromEnv()
+	if err != nil {
+		logrus.
+			WithError(err).
+			Errorf("Datadog tracing has failed to start... is the agent running, and configured?")
+	}
+	defer tracing.Stop()
+
 	// configure the api here
 	api.ServeError = errors.ServeError
 
@@ -54,8 +64,6 @@ func configureTLS(tlsConfig *tls.Config) {
 // This function can be called multiple times, depending on the number of serving schemes.
 // scheme value will be set accordingly: "http", "https" or "unix"
 func configureServer(s *http.Server, scheme, addr string) {
-	// start the tracer
-	tracing.StartFromEnv()
 }
 
 // The middleware configuration is for the handler executors. These do not apply to the swagger.json document.
