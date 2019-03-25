@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/caarlos0/env"
-	"github.com/srizzling/dd-trace-swagger/pkg/ecs"
+	"github.com/srizzling/dd-swagger-tracer/pkg/ecs"
 
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/ext"
